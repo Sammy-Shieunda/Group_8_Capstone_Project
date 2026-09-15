@@ -44,15 +44,25 @@ app.get("/", (req, res) => {
 });
 app.use(helmet());
 
-app.use(cors({
-    origin: [
+const allowedOrigins = [
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:5500",
     "http://127.0.0.1:5500",
     "http://localhost:5501",
-    "http://127.0.0.1:5501"
-],
+    "http://127.0.0.1:5501",
+    "https://writeable-rosy.vercel.app",
+    "https://writeable-admin.vercel.app"
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
