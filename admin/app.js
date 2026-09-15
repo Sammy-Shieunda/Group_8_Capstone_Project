@@ -46,7 +46,7 @@
      LIVE BACKEND SCREENINGS — Phase B
   --------------------------------------------------------------------- */
   const ADMIN_API_BASE_URL =
-  window.WRITEABLE_API_BASE_URL || 'http://localhost:5001/api';
+  window.WRITEABLE_API_BASE_URL || 'https://backend-rho-eight-41.vercel.app/api';
   let liveScreeningsLoaded = false;
   let dashboardRefreshTimer = null;
 
