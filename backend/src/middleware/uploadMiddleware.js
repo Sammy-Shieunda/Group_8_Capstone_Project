@@ -1,15 +1,24 @@
 const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
+const fs = require("fs");
+const os = require("os");
+
+const uploadDirectory = path.join(
+    os.tmpdir(),
+    "writeable-handwriting"
+);
+
+if (!fs.existsSync(uploadDirectory)) {
+    fs.mkdirSync(uploadDirectory, { recursive: true });
+}
 
 const storage = multer.diskStorage({
-
     destination: (req, file, cb) => {
-        cb(null, "uploads/handwriting/");
+        cb(null, uploadDirectory);
     },
 
     filename: (req, file, cb) => {
-
         const uniqueName =
             `${Date.now()}-${crypto.randomBytes(8).toString("hex")}${path.extname(file.originalname)}`;
 
@@ -18,7 +27,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-
     console.log("========== FILE RECEIVED ==========");
     console.log("Filename:", file.originalname);
     console.log("MIME type:", file.mimetype);
@@ -48,7 +56,6 @@ const fileFilter = (req, file, cb) => {
     ) {
         cb(null, true);
     } else {
-
         console.log("REJECTED:", {
             mimetype: file.mimetype,
             extension: extension
@@ -68,13 +75,3 @@ const upload = multer({
 });
 
 module.exports = upload;
-
-/* This gives us:
-JPEG support
-PNG support
-WebP support
-10 MB maximum
-unique filenames
-storage outside src
-rejection of unsupported file types
-*/
