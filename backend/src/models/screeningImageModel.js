@@ -10,7 +10,9 @@ const ScreeningImage = {
             stored_filename,
             file_path,
             mime_type,
-            file_size
+            file_size,
+            cloudinary_public_id,
+            cloudinary_url
         } = image;
 
         const [result] = await pool.execute(
@@ -21,16 +23,20 @@ const ScreeningImage = {
                 stored_filename,
                 file_path,
                 mime_type,
-                file_size
+                file_size,
+                cloudinary_public_id,
+                cloudinary_url
             )
-            VALUES (?, ?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 task_id,
                 original_filename,
                 stored_filename,
                 file_path,
                 mime_type,
-                file_size
+                file_size,
+                cloudinary_public_id || null,
+                cloudinary_url || null
             ]
         );
 
