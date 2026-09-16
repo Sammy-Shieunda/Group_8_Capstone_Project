@@ -1,4 +1,4 @@
-# Dysgraphia-screening-capstoneEarly Dysgraphia Screening from Handwriting
+# Dysgraphia-screening-capstone: Early Dysgraphia Screening from Handwriting
 Overview
 
 This project explores the use of Deep Learning to support the early screening of dysgraphia in children through handwriting analysis.
